@@ -17,6 +17,8 @@ app.listen(PORT, () => {
 
 app.post("/sign-up", (req, res) => {
   if (
+    req.body.username &&
+    req.body.avatar &&
     typeof req.body.username == "string" &&
     typeof req.body.avatar == "string" &&
     Object.keys(req.body).length == 2
@@ -35,6 +37,7 @@ app.get("/tweets", (req, res) => {
 app.post("/tweets", (req, res) => {
   if (
     req.body.username &&
+    req.body.tweet &&
     typeof req.body.tweet == "string" &&
     Object.keys(req.body).length == 2
   ) {
