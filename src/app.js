@@ -9,16 +9,23 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = 5000
+const PORT = 5000;
 
 app.listen(PORT, () => {
-  console.log(`server is running at port ${PORT}`);
+  console.log(`Server listening on PORT ${PORT}`);
 });
 
 app.post("/sign-up", (req, res) => {
-  users.push(req.body);
-
-  res.send("OK");
+  if (
+    req.body.username &&
+    req.body.avatar &&
+    Object.keys(req.body).length == 2
+  ) {
+    users.push(req.body);
+    res.status(201).send('OK')
+  } else {
+    res.status(400).send("Todos os campos são obrigatórios!");
+  }
 });
 
 app.get("/tweets", (req, res) => {
@@ -26,19 +33,27 @@ app.get("/tweets", (req, res) => {
 });
 
 app.post("/tweets", (req, res) => {
-  const user = users.find((user) => user.username == req.body.username);
+  if (
+    req.body.username &&
+    req.body.tweet &&
+    Object.keys(req.body).length == 2
+  ) {
+    const user = users.find((user) => user.username == req.body.username);
 
-  if (user) {
-    tweets.push({
-      username: user.username,
-      avatar: user.avatar,
-      tweet: req.body.tweet,
-    })
-    if (tweets.length > 10) {
-      tweets.shift()
+    if (user) {
+      tweets.push({
+        username: user.username,
+        avatar: user.avatar,
+        tweet: req.body.tweet,
+      });
+      if (tweets.length > 10) {
+        tweets.shift();
+      }
+      res.status(201).send('OK')
+    } else {
+      res.sendStatus(401); // Unauthorized
     }
-    res.send("OK");
   } else {
-    res.send("UNAUTHORIZED");
+    res.status(400).send("Todos os campos são obrigatórios!");
   }
 });
