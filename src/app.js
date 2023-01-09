@@ -5,25 +5,27 @@ const users = [];
 
 const tweets = [];
 
-const server = express();
-server.use(cors());
-server.use(express.json());
+const app = express();
+app.use(cors());
+app.use(express.json());
 
-server.listen(5000, () => {
-  console.log("server is running");
+const PORT = 5000
+
+app.listen(PORT, () => {
+  console.log(`server is running at port ${PORT}`);
 });
 
-server.post("/sign-up", (req, res) => {
+app.post("/sign-up", (req, res) => {
   users.push(req.body);
 
   res.send("OK");
 });
 
-server.get("/tweets", (req, res) => {
+app.get("/tweets", (req, res) => {
   res.send(tweets);
 });
 
-server.post("/tweets", (req, res) => {
+app.post("/tweets", (req, res) => {
   const user = users.find((user) => user.username == req.body.username);
 
   if (user) {
