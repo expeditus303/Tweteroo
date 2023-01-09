@@ -35,13 +35,15 @@ app.get("/tweets", (req, res) => {
 });
 
 app.post("/tweets", (req, res) => {
+  console.log(req.headers)
+
+ 
   if (
-    req.body.username &&
+    req.headers.user &&
     req.body.tweet &&
-    typeof req.body.tweet == "string" &&
-    Object.keys(req.body).length == 2
+    typeof req.body.tweet == "string"
   ) {
-    const user = users.find((user) => user.username == req.body.username);
+    const user = users.find((user) => user.username == req.headers.user);
 
     if (user) {
       tweets.push({
@@ -60,3 +62,11 @@ app.post("/tweets", (req, res) => {
     res.status(400).send("Todos os campos são obrigatórios!");
   }
 });
+
+app.get("/tweets/:username", (req, res) => {
+  const user = req.params.username
+
+  const userTweets = tweets.filter((t) => t.username == user)
+  
+  res.send(userTweets)
+})
