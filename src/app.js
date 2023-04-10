@@ -5,14 +5,14 @@ const users = [];
 
 const tweets = []
 
-for (let i = 0; i < 100; i++) {
-  const tweet =   {
-    username: "ana",
-    avatar: "https://img.elo7.com.br/product/zoom/22B5B61/adesivo-redondo-sandy-bob-esponja-sandy-do-bobo-esponja.jpg",
-    tweet: `eba o ric vai!!!! ${i}`
-  }
-  tweets.push(tweet)
-}
+// for (let i = 0; i < 100; i++) {
+//   const tweet =   {
+//     username: "ana",
+//     avatar: "https://img.elo7.com.br/product/zoom/22B5B61/adesivo-redondo-sandy-bob-esponja-sandy-do-bobo-esponja.jpg",
+//     tweet: `eba o ric vai!!!! ${i}`
+//   }
+//   tweets.push(tweet)
+// }
 
 tweets.reverse()
 
